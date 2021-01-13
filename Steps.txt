@@ -1,0 +1,7 @@
+Die Schritte die durchlaufen werden müssen im Clusteringverfahren
+
+1) Pandas Analysis
+2) Visualisation
+3) Data cleaining und Aufbreitung
+4) Kmeans
+    
