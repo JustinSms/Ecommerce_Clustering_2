@@ -4,4 +4,5 @@ Die Schritte die durchlaufen werden müssen im Clusteringverfahren
 2) Visualisation
 3) Data cleaining und Aufbreitung
 4) Kmeans
-    Äderungen stehen aus
+5) DBSCAN
+6) Evaluierung 
