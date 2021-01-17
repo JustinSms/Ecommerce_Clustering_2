@@ -4,7 +4,6 @@ import geopandas as gpd
 import math
 import matplotlib.pyplot as plt
 
-
 data = pd.read_csv("Ecommerce Customers.csv")
 
 data_num = data[["Avg. Session Length","Time on App","Time on Website","Length of Membership","Yearly Amount Spent"]]
