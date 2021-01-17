@@ -1,9 +1,15 @@
 import pandas as pd
 import numpy as np
+import support_file as sf
 
 data = pd.read_csv("Ecommerce Customers.csv")
 
-data_num = data[["Avg. Session Length","Time on App","Time on Website","Length of Membership","Yearly Amount Spent"]]
+data_hot = sf.data_hot_clustering[["Avg. Session Length","Time on App","Time on Website","Length of Membership","Yearly Amount Spent"]]
+#print(data_hot.describe())
+
+data_num = data_hot
+
+#data[["Avg. Session Length","Time on App","Time on Website","Length of Membership","Yearly Amount Spent"]]
 
 instance_norm_list = []
 
@@ -37,3 +43,6 @@ for i in data_num:
 # new normalized dataframe
 normalized_dataframe = pd.concat(instance_norm_list, axis=1)
 normalized_dataframe.columns = list(data_num.columns)
+
+#print(normalized_dataframe.head(5))
+print(normalized_dataframe.info())
