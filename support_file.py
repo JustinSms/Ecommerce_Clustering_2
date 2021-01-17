@@ -65,6 +65,8 @@ hot_states = pd.get_dummies(data_mixed_new["State group"])
 data_hot_clustering = pd.concat([data_mixed_new,hot_states], axis=1)
 #print(data_hot_clustering.head(5))
 
+
+
 data_hot_clustering_only_dummies = data_hot_clustering[["HIGH","MEDIUM","LOW"]]
 
-print(data_hot_clustering_only_dummies.head(5))
+#print(data_hot_clustering_only_dummies.head(5))
