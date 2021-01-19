@@ -69,3 +69,30 @@ data_hot_clustering = pd.concat([data_mixed_new,hot_states], axis=1)
 data_hot_clustering_only_dummies = data_hot_clustering[["HIGH","MEDIUM","LOW"]]
 
 #print(data_hot_clustering_only_dummies.head(5))
+
+
+email_tail_list = []
+email_series = data["Email"]
+
+for i in email_series:
+    head, sep, tail = i.partition("@")
+    email_tail_list.append(tail)
+
+email_tail_series = pd.Series(email_tail_list)
+
+tail_cat_list = []
+
+for i in email_tail_list:
+    if i == "gmail.com":
+        tail_cat_list.append(1)
+    if i == "hotmail.com":
+        tail_cat_list.append(2)
+    if i == "yahoo.com":
+        tail_cat_list.append(3)
+    else:
+        tail_cat_list.append(4)
+
+email_new = pd.Series(tail_cat_list)
+
+#print(email_new.head(15))
+print(email_new.value_counts())
