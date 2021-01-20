@@ -3,6 +3,7 @@ import numpy as np
 import geopandas as gpd
 import math
 import matplotlib.pyplot as plt
+from sklearn.preprocessing import StandardScaler
 
 data = pd.read_csv("Ecommerce Customers.csv")
 
@@ -69,3 +70,22 @@ data_hot_clustering = pd.concat([data_mixed_new,hot_states], axis=1)
 data_hot_clustering_only_dummies = data_hot_clustering[["HIGH","MEDIUM","LOW"]]
 
 #print(data_hot_clustering_only_dummies.head(5))
+
+
+#Import for kproto validation
+data_stand = data_hot_clustering[["Avg. Session Length","Time on App","Time on Website","Length of Membership","Yearly Amount Spent","State group"]]
+
+con_feats = ["Avg. Session Length","Time on App","Time on Website","Length of Membership","Yearly Amount Spent"]
+scale = StandardScaler()
+
+data_stand[con_feats] = scale.fit_transform(data_stand[con_feats])
+#print(data_stand.head())
+data_array=data_stand.values
+
+
+#importing kproto for validation 
+kproto = KPrototypes(n_clusters=3, max_iter=20)
+clusters = kproto.fit_predict(data_array, categorical=[5])
+
+print(kproto.cluster_centroids_)
+print(clusters)
