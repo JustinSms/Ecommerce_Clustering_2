@@ -4,6 +4,8 @@ import geopandas as gpd
 import math
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
+from kmodes.kprototypes import KPrototypes 
+from sklearn.cluster import DBSCAN
 
 data = pd.read_csv("Ecommerce Customers.csv")
 
@@ -76,16 +78,30 @@ data_hot_clustering_only_dummies = data_hot_clustering[["HIGH","MEDIUM","LOW"]]
 data_stand = data_hot_clustering[["Avg. Session Length","Time on App","Time on Website","Length of Membership","Yearly Amount Spent","State group"]]
 
 con_feats = ["Avg. Session Length","Time on App","Time on Website","Length of Membership","Yearly Amount Spent"]
+
 scale = StandardScaler()
 
-data_stand[con_feats] = scale.fit_transform(data_stand[con_feats])
+con_feats_scaled = scale.fit_transform(data_stand[con_feats])
+
+con_feats_scaled_df = pd.DataFrame(con_feats_scaled)
+
+data_stand = pd.concat([con_feats_scaled_df, data_hot_clustering["State group"]], axis=1)
+
 #print(data_stand.head())
+
 data_array=data_stand.values
 
 
 #importing kproto for validation 
 kproto = KPrototypes(n_clusters=3, max_iter=20)
-clusters = kproto.fit_predict(data_array, categorical=[5])
+clusters_proto = kproto.fit_predict(data_array, categorical=[5])
 
-print(kproto.cluster_centroids_)
-print(clusters)
+#print(kproto.cluster_centroids_)
+#print(clusters_proto)
+
+# DBSCAN
+data_stand_DBSCAN = pd.concat([con_feats_scaled_df, data_hot_clustering[["HIGH","MEDIUM","LOW"]]], axis=1)
+
+dbscan = DBSCAN(eps=1.6, min_samples=10)
+clusters_dbscan = dbscan.fit_predict(data_stand_DBSCAN)
+print(clusters_dbscan)
