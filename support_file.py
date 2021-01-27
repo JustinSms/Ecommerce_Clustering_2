@@ -104,4 +104,4 @@ data_stand_DBSCAN = pd.concat([con_feats_scaled_df, data_hot_clustering[["HIGH",
 
 dbscan = DBSCAN(eps=1.6, min_samples=10)
 clusters_dbscan = dbscan.fit_predict(data_stand_DBSCAN)
-print(clusters_dbscan)
+#print(clusters_dbscan)
